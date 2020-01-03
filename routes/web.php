@@ -25,8 +25,10 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     $router->addRoute(['GET', 'POST'], '/category/addChild/{id:[1-9]+}', 'CategoryController@addChild'); // 添加文章子分类
     $router->addRoute(['GET', 'POST'],'/category/edit/{id:[1-9]+}', 'CategoryController@edit'); // 编辑文章分类
     $router->get('/category/list', 'CategoryController@lists'); // 文章分类列表
-    $router->post('/category/del/{id:[1-9]+}', 'CategoryController@del'); // 删除文章分类
+    $router->post('/category/del', 'CategoryController@del'); // 删除文章分类
     $router->post('/category/status/{id:[1-9]+}', 'CategoryController@status'); // 更改状态status
 
+
+    $router->get('/message/list', 'MessageController@lists'); // 在线留言
 });
 

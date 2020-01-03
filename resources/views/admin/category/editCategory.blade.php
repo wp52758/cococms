@@ -19,7 +19,7 @@
     <![endif]-->
 </head>
 <body>
-<div class="layui-fluid" style="width: 50%">
+<div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
@@ -66,7 +66,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="radio" name="is_nav" value="1" title="是" @if(empty($category['is_nav']) || $category['is_nav'] == 1) checked @endif>
-                    <input type="radio" name="is_nav" value="2" title="否" @if($category['is_nav'] ==2) checked @endif>
+                    <input type="radio" name="is_nav" value="0" title="否" @if($category['is_nav'] ==0) checked @endif>
                 </div>
             </div>
 

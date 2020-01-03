@@ -46,7 +46,7 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-                    <button class="layui-btn" onclick="xadmin.open('增加分类','/admin/category/add')" lay-submit=""
+                    <button class="layui-btn" onclick="xadmin.open('增加分类','/admin/category/add',500,500)" lay-submit=""
                             lay-filter="sreach"><i class="layui-icon"></i>增加分类
                     </button>
                 </div>
@@ -57,7 +57,7 @@
                         <thead>
                         <tr>
                             <th width="20">
-                                <input type="checkbox" name="" lay-skin="primary">
+                                <input type="checkbox" id="checkbox-all" name="" lay-skin="primary">
                             </th>
                             <th width="70">ID</th>
                             <th>分类名</th>
@@ -70,7 +70,7 @@
                         @foreach($list as $value)
                             <tr cate-id='{{ $value['id'] }}' fid='{{ $value['parent_id'] }}'>
                                 <td>
-                                    <input type="checkbox" name="" lay-skin="primary">
+                                    <input type="checkbox" name="{{ $value['id'] }}" lay-skin="primary">
                                 </td>
                                 <td>{{ $value['id'] }}</td>
                                 <td>
@@ -86,16 +86,16 @@
                                 </td>
                                 <td class="td-manage">
                                     <button class="layui-btn layui-btn layui-btn-xs"
-                                            onclick="xadmin.open('编辑','/admin/category/edit/{{ $value['id'] }}')"><i
+                                            onclick="xadmin.open('编辑','/admin/category/edit/{{ $value['id'] }}',500,500)"><i
                                                 class="layui-icon">&#xe642;</i>编辑
                                     </button>
                                     <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                            onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $value['id'] }}')">
+                                            onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $value['id'] }}',500,500)">
                                         <i class="layui-icon">&#xe642;</i>添加子栏目
 
                                     </button>
                                     <button class="layui-btn-danger layui-btn layui-btn-xs"
-                                            onclick="member_del(this,'{{ $value['id'] }}')" href="javascript:;"><i
+                                            onclick="delOne('{{ $value['id'] }}',this)" href="javascript:;"><i
                                                 class="layui-icon">&#xe640;</i>删除
                                     </button>
                                 </td>
@@ -103,7 +103,7 @@
                             @foreach($value['child'] as $child)
                                 <tr cate-id='{{ $child['id'] }}' fid='{{ $child['parent_id'] }}'>
                                     <td>
-                                        <input type="checkbox" name="" lay-skin="primary">
+                                        <input type="checkbox" name="{{ $child['id'] }}" lay-skin="primary">
                                     </td>
                                     <td>{{ $child['id'] }}</td>
                                     <td>
@@ -120,15 +120,15 @@
                                     </td>
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn layui-btn-xs"
-                                                onclick="xadmin.open('编辑','/admin/category/edit/{{ $child['id'] }}')"><i
+                                                onclick="xadmin.open('编辑','/admin/category/edit/{{ $child['id'] }}',500,500)"><i
                                                     class="layui-icon">&#xe642;</i>编辑
                                         </button>
                                         <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $child['id'] }}')">
+                                                onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $child['id'] }}',500,500)">
                                             <i class="layui-icon">&#xe642;</i>添加子栏目
                                         </button>
                                         <button class="layui-btn-danger layui-btn layui-btn-xs"
-                                                onclick="member_del(this,'{{ $child['id'] }}')" href="javascript:;"><i
+                                                onclick="delOne('{{ $child['id'] }}',this)" href="javascript:;"><i
                                                     class="layui-icon">&#xe640;</i>删除
                                         </button>
                                     </td>
@@ -137,7 +137,7 @@
                                 @foreach($child['child'] as $cd)
                                     <tr cate-id='{{ $cd['id'] }}' fid='{{ $cd['parent_id'] }}'>
                                         <td>
-                                            <input type="checkbox" name="" lay-skin="primary">
+                                            <input type="checkbox" name="{{ $cd['id'] }}" lay-skin="primary">
                                         </td>
                                         <td>{{ $cd['id'] }}</td>
                                         <td>
@@ -152,15 +152,15 @@
                                         </td>
                                         <td class="td-manage">
                                             <button class="layui-btn layui-btn layui-btn-xs"
-                                                    onclick="xadmin.open('编辑','/admin/category/edit/{{ $cd['id'] }}')">
+                                                    onclick="xadmin.open('编辑','/admin/category/edit/{{ $cd['id'] }}',500,500)">
                                                 <i class="layui-icon">&#xe642;</i>编辑
                                             </button>
                                             <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                    onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $cd['id'] }}')">
+                                                    onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $cd['id'] }}',500,500)">
                                                 <i class="layui-icon">&#xe642;</i>添加子栏目
                                             </button>
                                             <button class="layui-btn-danger layui-btn layui-btn-xs"
-                                                    onclick="member_del(this,'{{ $cd['id'] }}')" href="javascript:;"><i
+                                                    onclick="delOne('{{ $cd['id'] }}',this)" href="javascript:;"><i
                                                         class="layui-icon">&#xe640;</i>删除
                                             </button>
                                         </td>
@@ -184,21 +184,36 @@
 
     });
 
-    /*-删除*/
-    function member_del(obj, id) {
+    /*删除一个*/
+    function delOne(id,obj) {
+        var ids = [id];
+        del(ids);
+    }
+
+    function delAll() {
+        var ids = [];
+        $('tbody .layui-form-checkbox').each(function (i, elm) {
+            if ($(this).hasClass('layui-form-checked')) {
+                var id = $(this).prev().attr('name');
+                ids.push(id);
+            }
+        });
+
+        console.log(ids);
+        del(ids);
+    }
+
+    function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $.post('/admin/category/del/' + id, function (data) {
+            $.post('/admin/category/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
-                    $(obj).parents("tr").remove();
+                    if(obj) $(obj).parents("tr").remove();
                     layer.msg('已删除!', {icon: 1, time: 1000});
                 } else {
-                    $(obj).parents("tr").remove();
                     layer.msg('已删除失败!', {icon: 1, time: 1000});
                 }
             })
-
         });
     }
 
@@ -223,7 +238,17 @@
                     $("tbody tr[cate-id=" + cateIds[i] + "]").hide().find('.x-show').html('&#xe623;').attr('status', 'true');
                 }
             }
-        })
+        });
+
+
+        $('thead .layui-form-checkbox').on('click', function () {
+            if ($(this).hasClass('layui-form-checked')) {
+                $('tbody .layui-form-checkbox').addClass('layui-form-checked');
+            } else {
+                $('tbody .layui-form-checkbox').removeClass('layui-form-checked');
+            }
+        });
+
 
         // 切换开启和停用状态
         $('.layui-form-switch').on('click', function () {
@@ -245,7 +270,7 @@
         });
 
 
-    })
+    });
 
     var cateIds = [];
 

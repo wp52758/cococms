@@ -94,7 +94,7 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;">
+                <a onclick="xadmin.add_tab('在线留言','/admin/message/list')">
                     <i class="iconfont left-nav-li" lay-tips="在线留言">&#xe72d;</i>
                     <cite>在线留言</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>

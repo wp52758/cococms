@@ -103,21 +103,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param int $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function del(int $id, Request $request)
+    public function del(Request $request)
     {
-        $category = Category::where('id', $id)->first();
-        if (empty($category->id)) {
-            $this->response->setMsg(400, '删除的信息不存在');
-            return $this->response->responseJSON();
-        }
 
-        if (!Category::del($category)) {
-            $this->response->setMsg(500, '删除失败');
-        }
+        Category::del($request->input('ids'));
 
         return $this->response->responseJSON();
     }

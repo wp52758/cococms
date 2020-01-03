@@ -19,7 +19,7 @@
     <![endif]-->
 </head>
 <body>
-<div class="layui-fluid" style="width: 50%">
+<div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
@@ -65,8 +65,8 @@
                     作为导航
                 </label>
                 <div class="layui-input-inline">
-                    <input type="radio" name="is_nav" value="" title="是" checked>
-                    <input type="radio" name="is_nav" value="女" title="否" >
+                    <input type="radio" name="is_nav" value="1" title="是" checked>
+                    <input type="radio" name="is_nav" value="0" title="否" >
                 </div>
             </div>
 

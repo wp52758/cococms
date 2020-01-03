@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Services\Response;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +46,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        $response = new Response();
+
+        //数据验证异常拦截
+        $classException = get_class($exception);
+
+        if ($classException == ValidationException::class) {
+            // 返回所有错误信息
+            if ($exception instanceof \Illuminate\Validation\ValidationException) {
+
+
+                $response->setMsg(422, array_values($exception->validator->errors()->toArray())[0][0]);
+                return $response->responseJSON();
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }

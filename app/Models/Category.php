@@ -63,10 +63,10 @@ class Category extends Model
             ->get();
     }
 
-    public static function del(Category $category)
+    public static function del(array $ids)
     {
-        $category->is_del = 1;
-        return $category->update();
+
+        return Category::whereIn('id', $ids)->update(['is_del' => 1]);
     }
 
     public static function isOpen(Category $category)
