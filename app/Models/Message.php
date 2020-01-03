@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    public static function lists(int $page = 0, int $parPage = 20)
+    public static function lists(int $page = 0, int $parPage = 15)
     {
 
         $message = Message::orderBy('id','DESC');
