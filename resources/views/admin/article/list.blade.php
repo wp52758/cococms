@@ -32,28 +32,19 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                            <input class="layui-input" placeholder="开始日" name="begin_time" id="start" autocomplete="off"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                            <input class="layui-input" placeholder="截止日" name="end_time" id="end" autocomplete="off"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option>支付方式</option>
-                                <option>支付宝</option>
-                                <option>微信</option>
-                                <option>货到付款</option></select>
+                            <select name="is_release">
+                                <option value="">发布状态</option>
+                                <option value="1">已发布</option>
+                                <option value="0">未发布</option>
+                            </select>
                         </div>
+
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option value="">订单状态</option>
-                                <option value="0">待确认</option>
-                                <option value="1">已确认</option>
-                                <option value="2">已收货</option>
-                                <option value="3">已取消</option>
-                                <option value="4">已完成</option>
-                                <option value="5">已作废</option></select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入订单号" autocomplete="off" class="layui-input"></div>
+                            <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach">
                                 <i class="layui-icon">&#xe615;</i></button>

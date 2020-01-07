@@ -74,30 +74,24 @@ class Article extends Model
 
     }
 
-    public static function lists(array $conditions, int $page = 0, int $parPage = 15)
+    public static function lists(array $conditions, int $page = 0, int $parPage = 10)
     {
-        // 获取指定分类下的所有分类ID，用于查询指定分类下的所有文章。也就是把该分类下的所有子级的id都查询出来
-        // 比如，新闻分类下有公司新闻和行业信息，如果选择的是公司新闻，那么行业新闻和公司新闻都必须出现
-        $categoryIds = [];
-        if (!empty($conditions['category_id'])) {
-            $category = Category::getCategoryChildrenIdsByParentId($conditions['category_id']);
 
-        }
 
-        $category = Article::with('category');
-        !empty($categoryIds) && $category->whereIn('category_id', $categoryIds);
-        !empty($conditions['title']) && $category->where('title', 'like', "{$conditions['title']}%"); // 模糊匹配标题查询
-        !empty($conditions['is_top']) && $category->where('is_top', (int)$conditions['is_top']);
-        !empty($conditions['is_recommended']) && $category->where('is_recommended', (int)$conditions['is_recommended']);
-        !empty($conditions['is_rolling']) && $category->where('is_rolling', (int)$conditions['is_rolling']);
-        !empty($conditions['is_release']) && $category->where('is_release', (int)$conditions['is_release']);
-        !empty($conditions['begin_time']) && $category->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($conditions['begin_time'])));
-        !empty($conditions['end_time']) && $category->where('created_at', '<', date('Y-m-d H:i:s', strtotime('+1 day', strtotime($conditions['begin_time']))));
+        $article = Article::with('category');
+        !empty($articleIds) && $article->whereIn('category_id', $articleIds);
+        !empty($conditions['title']) && $article->where('title', 'like', "{$conditions['title']}%"); // 模糊匹配标题查询
+        !empty($conditions['is_top']) && $article->where('is_top', (int)$conditions['is_top']);
+        !empty($conditions['is_recommended']) && $article->where('is_recommended', (int)$conditions['is_recommended']);
+        !empty($conditions['is_rolling']) && $article->where('is_rolling', (int)$conditions['is_rolling']);
+        !empty($conditions['is_release']) && $article->where('is_release', (int)$conditions['is_release']);
+        !empty($conditions['begin_time']) && $article->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($conditions['begin_time'])));
+        !empty($conditions['end_time']) && $article->where('created_at', '<', date('Y-m-d H:i:s', strtotime('+1 day', strtotime($conditions['end_time']))));
 
-        $category->where('is_del', 0);
-        $category->orderBy('id', 'DESC');
+        $article->where('is_del', 0);
+        $article->orderBy('id', 'DESC');
 
-        return $category->paginate($parPage, ['*'], 'page', $page);
+        return $article->paginate($parPage, ['*'], 'page', $page);
     }
 
     /**
