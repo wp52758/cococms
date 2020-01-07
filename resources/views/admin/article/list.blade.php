@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/pagination.css">
     <script src="/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -83,7 +84,7 @@
                         @foreach($article as $value)
                         <tr>
                             <td>
-                                <input type="checkbox" name="" lay-skin="primary"></td>
+                                <input type="checkbox" name="{{ $value['id'] }}" lay-skin="primary"></td>
                             <td>{{ $value['id'] }}</td>
                             <td>{{ $value['title'] }}</td>
                             <td>{{ $value['category']['name'] }}</td>
@@ -112,7 +113,7 @@
 </div>
 </body>
 <script>
-    layui.use(['laydate', 'form','jquery'],
+    layui.use(['laydate', 'form'],
         function() {
             var laydate = layui.laydate;
 
@@ -124,6 +125,15 @@
             //执行一个laydate实例
             laydate.render({
                 elem: '#end' //指定元素
+            });
+
+            $('thead .layui-form-checkbox').on('click', function () {
+
+                if ($(this).hasClass('layui-form-checked')) {
+                    $('tbody .layui-form-checkbox').addClass('layui-form-checked');
+                } else {
+                    $('tbody .layui-form-checkbox').removeClass('layui-form-checked');
+                }
             });
 
             // 切换开启和停用状态
@@ -164,6 +174,7 @@
 
         console.log(ids);
         del(ids);
+
     }
 
     function del(ids, obj) {
@@ -171,14 +182,20 @@
             $.post('/admin/article/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
-                    if(obj) $(obj).parents("tr").remove();
+                    if(obj){
+                        $(obj).parents("tr").remove();
+                    }else {
+                        xadmin.father_reload();
+                    }
                     layer.msg('已删除!', {icon: 1, time: 1000});
+
                 } else {
                     layer.msg('已删除失败!', {icon: 1, time: 1000});
                 }
             })
         });
     }
+
 </script>
 
 </html>
