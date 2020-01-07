@@ -23,7 +23,7 @@ class UploadController extends Controller
 
 
                 // 上传的路径，是绝对路径。base_path()获取到的是从系统根目录到项目目录的路径
-                $uploadPath = base_path() . '/public/images/';
+                $uploadPath = base_path() . '/public/file/';
 
                 // 拼接出一个文件名，$file->getClientOriginalExtension()用于获取文件的后缀
                 $fileName = date('YmdHis') . mt_rand(100, 999) . '.' . $file->getClientOriginalExtension();
@@ -35,7 +35,7 @@ class UploadController extends Controller
                     return $this->response->responseJSON();
                 }
 
-                $fileName = '/images/' . $fileRet->getFilename();
+                $fileName = '/file/' . $fileRet->getFilename();
 
                 $this->response->setData(['file' => $fileName]);
                 return $this->response->responseJSON();

@@ -81,16 +81,16 @@
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章分类</cite></a>
                     </li>
-                    {{--<li>--}}
-                        {{--<a onclick="xadmin.add_tab('文章列表','order-list1.html')">--}}
-                            {{--<i class="iconfont">&#xe6a7;</i>--}}
-                            {{--<cite>文章列表</cite></a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a onclick="xadmin.add_tab('单页','order-list1.html')">--}}
-                            {{--<i class="iconfont">&#xe6a7;</i>--}}
-                            {{--<cite>单页</cite></a>--}}
-                    {{--</li>--}}
+                    <li>
+                        <a onclick="xadmin.add_tab('文章列表','/admin/article/list')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章列表</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('单页','order-list1.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>单页</cite></a>
+                    </li>
                 </ul>
             </li>
             <li>

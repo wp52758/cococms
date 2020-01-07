@@ -187,7 +187,7 @@
     /*删除一个*/
     function delOne(id,obj) {
         var ids = [id];
-        del(ids);
+        del(ids,obj);
     }
 
     function delAll() {

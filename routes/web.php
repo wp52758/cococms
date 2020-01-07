@@ -30,5 +30,14 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
 
 
     $router->get('/message/list', 'MessageController@lists'); // 在线留言
+
+
+    $router->get('/article/list', 'ArticleController@lists'); // 文章列表
+    $router->addRoute(['GET', 'POST'],'/article/add', 'ArticleController@add'); // 添加文章
+    $router->addRoute(['GET', 'POST'],'/article/edit/{id:[1-9]+}', 'ArticleController@edit'); // 编辑文章
+    $router->post('/article/del', 'ArticleController@del'); // 删除文章
+    $router->post('/article/status/{id:[1-9]+}', 'ArticleController@status'); // 发布状态
+
+
 });
 

@@ -75,5 +75,14 @@ class Category extends Model
         return $category->update();
     }
 
+    public static function getCategoryChildrenIdsByParentId(int $pid)
+    {
+        return Category::with('child.child.child')
+            ->where('parent_id', $pid)
+            ->where('is_del', 0)
+            ->select(['id', 'name', 'parent_id'])
+            ->get();
+    }
+
 
 }

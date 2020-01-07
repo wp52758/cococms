@@ -124,7 +124,7 @@ class CategoryController extends Controller
 
         $category = Category::where('id', $id)->first();
         if (empty($category->id)) {
-            $this->response->setMsg(400, '删除的信息不存在');
+            $this->response->setMsg(400, '信息不存在');
             return $this->response->responseJSON();
         }
 
