@@ -75,13 +75,18 @@ class Category extends Model
         return $category->update();
     }
 
-    public static function getCategoryChildrenIdsByParentId(int $pid)
+    public static function getCategoryChildrenIdsByParentId(int $pid, $type = 0)
     {
-        return Category::with('child.child.child')
-            ->where('parent_id', $pid)
-            ->where('is_del', 0)
-            ->select(['id', 'name', 'parent_id'])
-            ->get();
+        $category = Category::with('child.child.child');
+
+        $type == 1 && $category->where('type', 1);
+        $type == 2 && $category->where('type', 2);
+
+        $category->where('parent_id', $pid);
+        $category->where('is_del', 0);
+        $category->select(['id', 'name', 'parent_id']);
+
+        return $category->get();
     }
 
 

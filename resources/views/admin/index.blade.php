@@ -87,7 +87,7 @@
                             <cite>文章列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('单页','order-list1.html')">
+                        <a onclick="xadmin.add_tab('单页','/admin/singlePage/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>单页</cite></a>
                     </li>
@@ -101,7 +101,7 @@
 
             </li>
             <li>
-                <a href="javascript:;">
+                <a onclick="xadmin.add_tab('友情链接','/admin/friendLink/list')">
                     <i class="iconfont left-nav-li" lay-tips="友情链接">&#xe6f7;</i>
                     <cite>友情链接</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>

@@ -39,5 +39,16 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     $router->post('/article/status/{id:[1-9]+}', 'ArticleController@status'); // 发布状态
 
 
+    $router->get('/singlePage/list', 'SinglePageController@lists'); // 单页列表
+    $router->addRoute(['GET', 'POST'],'/singlePage/add', 'SinglePageController@add'); // 添加单页
+    $router->addRoute(['GET', 'POST'],'/singlePage/edit/{id:[1-9]+}', 'SinglePageController@edit'); // 编辑单页
+    $router->post('/singlePage/del', 'SinglePageController@del'); // 删除单页
+
+    $router->get('/friendLink/list', 'FriendLinkController@lists'); // 友情链接列表
+    $router->addRoute(['GET', 'POST'],'/friendLink/add', 'FriendLinkController@add'); // 添加友情链接
+    $router->addRoute(['GET', 'POST'],'/friendLink/edit/{id:[1-9]+}', 'FriendLinkController@edit'); // 编辑友情链接
+    $router->post('/friendLink/del', 'FriendLinkController@del'); // 删除友情链接
+    $router->post('/friendLink/status/{id:[1-9]+}', 'FriendLinkController@status'); // 发布状态
+
 });
 
