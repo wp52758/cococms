@@ -19,6 +19,11 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_id', 'id');
     }
 
+    public function permission()
+    {
+        return $this->hasMany(Permission::class,'menu_id','id');
+    }
+
     public static function add(array $data)
     {
         $menu = new Menu();
@@ -37,7 +42,7 @@ class Menu extends Model
 
     public static function lists()
     {
-        return Menu::with('child.child.child')->where('parent_id',0)->get();
+        return Menu::with('child.child.child')->where('parent_id', 0)->get();
     }
 
     public static function del(array $ids)

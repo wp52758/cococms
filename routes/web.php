@@ -58,6 +58,18 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     $router->addRoute(['GET', 'POST'],'/menu/edit/{id:[1-9]+}', 'MenuController@edit'); // 编辑菜单
     $router->post('/menu/del', 'MenuController@del'); // 删除菜单
 
+    // 权限
+    $router->get('/permission/list', 'PermissionController@lists'); // 权限列表
+    $router->addRoute(['GET', 'POST'],'/permission/add', 'PermissionController@add'); // 添加权限
+    $router->addRoute(['GET', 'POST'],'/permission/edit/{id:[1-9]+}', 'PermissionController@edit'); // 编辑权限
+    $router->post('/permission/del', 'PermissionController@del'); // 删除权限
+
+    // 角色
+    $router->get('/role/list', 'RoleController@lists'); // 角色列表
+    $router->addRoute(['GET', 'POST'],'/role/add', 'RoleController@add'); // 添加角色
+    $router->addRoute(['GET', 'POST'],'/role/edit/{id:[1-9]+}', 'RoleController@edit'); // 编辑角色
+    $router->post('/role/del', 'RoleController@del'); // 删除角色
+
 
 });
 

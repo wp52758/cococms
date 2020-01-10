@@ -39,7 +39,7 @@
                         @foreach($category as $value)
                             <option value="{{ $value['id'] }}" @if($value['id'] == $article['category_id']) selected @endif @if(count($value['child']) > 0) disabled @endif>{{ $value['name'] }}</option>
                             @foreach($value['child'] as $child)
-                                <option value="{{ $child['id'] }}" @if($child['id'] == $article['category_id']) selected @endif @if(count($value['child']) > 0) disabled @endif>&nbsp;&nbsp;&nbsp;├ {{ $child['name'] }}</option>
+                                <option value="{{ $child['id'] }}" @if($child['id'] == $article['category_id']) selected @endif @if(count($child['child']) > 0) disabled @endif>&nbsp;&nbsp;&nbsp;├ {{ $child['name'] }}</option>
                                 @foreach($child['child'] as $item)
                                     <option value="{{ $item['id'] }}" @if($item['id'] == $article['category_id']) selected @endif>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ {{ $item['name'] }}</option>
                                 @endforeach

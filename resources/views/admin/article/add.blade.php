@@ -39,7 +39,7 @@
                         @foreach($category as $value)
                             <option value="{{ $value['id'] }}" @if(count($value['child']) > 0) disabled @endif>{{ $value['name'] }}</option>
                             @foreach($value['child'] as $child)
-                                <option value="{{ $child['id'] }}" @if(count($value['child']) > 0) disabled @endif>&nbsp;&nbsp;&nbsp;├ {{ $child['name'] }}</option>
+                                <option value="{{ $child['id'] }}" @if(count($child['child']) > 0) disabled @endif>&nbsp;&nbsp;&nbsp;├ {{ $child['name'] }}</option>
                                 @foreach($child['child'] as $item)
                                     <option value="{{ $item['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ {{ $item['name'] }}</option>
                                 @endforeach
