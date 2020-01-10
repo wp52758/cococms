@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.2</title>
+    <title>菜单列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -30,7 +30,7 @@
             <span class="layui-breadcrumb">
                 <a href="/admin/index">首页</a>
                 <a>
-                    <cite>文章分类</cite></a>
+                    <cite>菜单列表</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
@@ -46,8 +46,8 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-                    <button class="layui-btn" onclick="xadmin.open('增加分类','/admin/category/add',800,500)" lay-submit=""
-                            lay-filter="sreach"><i class="layui-icon"></i>增加分类
+                    <button class="layui-btn" onclick="xadmin.open('增加菜单','/admin/menu/add',500,200)" lay-submit=""
+                            lay-filter="sreach"><i class="layui-icon"></i>增加菜单
                     </button>
                 </div>
 
@@ -60,14 +60,12 @@
                                 <input type="checkbox" id="checkbox-all" name="" lay-skin="primary">
                             </th>
                             <th width="70">ID</th>
-                            <th>分类名</th>
-                            <th width="50">排序</th>
-                            <th width="80">状态</th>
+                            <th>菜单名</th>
                             <th width="250">操作</th>
                         </thead>
                         <tbody class="x-cate">
 
-                        @foreach($list as $value)
+                        @foreach($menu as $value)
                             <tr cate-id='{{ $value['id'] }}' fid='{{ $value['parent_id'] }}'>
                                 <td>
                                     <input type="checkbox" name="{{ $value['id'] }}" lay-skin="primary">
@@ -78,20 +76,15 @@
                                         <i class="layui-icon x-show" status='true'>&#xe623;</i>@else &nbsp; @endif
                                     {{ $value['name'] }}
                                 </td>
-                                <td><input type="text" class="layui-input x-sort" name="order" value="1"></td>
-                                <td>
-                                    <input type="checkbox" name="switch" lay-text="开启|停用"
-                                           @if($value['is_open'] == 1) checked @endif
-                                           lay-skin="switch" id="{{ $value['id'] }}">
-                                </td>
+
                                 <td class="td-manage">
                                     <button class="layui-btn layui-btn layui-btn-xs"
-                                            onclick="xadmin.open('编辑','/admin/category/edit/{{ $value['id'] }}',800,500)"><i
+                                            onclick="xadmin.open('编辑','/admin/menu/edit/{{ $value['id'] }}',500200)"><i
                                                 class="layui-icon">&#xe642;</i>编辑
                                     </button>
                                     <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                            onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $value['id'] }}',800,500)">
-                                        <i class="layui-icon">&#xe642;</i>添加子栏目
+                                            onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $value['id'] }}',500,200)">
+                                        <i class="layui-icon">&#xe642;</i>添加子菜单
 
                                     </button>
                                     <button class="layui-btn-danger layui-btn layui-btn-xs"
@@ -112,20 +105,15 @@
                                             ├ @endif
                                         {{ $child['name'] }}
                                     </td>
-                                    <td><input type="text" class="layui-input x-sort" name="order" value="1"></td>
-                                    <td>
-                                        <input type="checkbox" name="switch" lay-text="开启|停用"
-                                               @if($child['is_open'] == 1) checked @endif
-                                               lay-skin="switch" id="{{ $child['id'] }}">
-                                    </td>
+
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn layui-btn-xs"
-                                                onclick="xadmin.open('编辑','/admin/category/edit/{{ $child['id'] }}',800,500)"><i
+                                                onclick="xadmin.open('编辑','/admin/menu/edit/{{ $child['id'] }}',500,500)"><i
                                                     class="layui-icon">&#xe642;</i>编辑
                                         </button>
                                         <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $child['id'] }}')">
-                                            <i class="layui-icon">&#xe642;</i>添加子栏目
+                                                onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $child['id'] }}',500,500)">
+                                            <i class="layui-icon">&#xe642;</i>添加子菜单
                                         </button>
                                         <button class="layui-btn-danger layui-btn layui-btn-xs"
                                                 onclick="delOne('{{ $child['id'] }}',this)" href="javascript:;"><i
@@ -144,20 +132,15 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             ├{{ $cd['name'] }}
                                         </td>
-                                        <td><input type="text" class="layui-input x-sort" name="order" value="1"></td>
-                                        <td>
-                                            <input type="checkbox" name="switch" lay-text="开启|停用"
-                                                   @if($cd['is_open'] == 1) checked @endif
-                                                   lay-skin="switch" id="{{ $cd['id'] }}">
-                                        </td>
+
                                         <td class="td-manage">
                                             <button class="layui-btn layui-btn layui-btn-xs"
-                                                    onclick="xadmin.open('编辑','/admin/category/edit/{{ $cd['id'] }}')">
+                                                    onclick="xadmin.open('编辑','/admin/menu/edit/{{ $cd['id'] }}',500,500)">
                                                 <i class="layui-icon">&#xe642;</i>编辑
                                             </button>
                                             <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                    onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $cd['id'] }}')">
-                                                <i class="layui-icon">&#xe642;</i>添加子栏目
+                                                    onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $cd['id'] }}',500,500)">
+                                                <i class="layui-icon">&#xe642;</i>添加子菜单
                                             </button>
                                             <button class="layui-btn-danger layui-btn layui-btn-xs"
                                                     onclick="delOne('{{ $cd['id'] }}',this)" href="javascript:;"><i
@@ -205,7 +188,7 @@
 
     function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/category/del', {ids: ids}, function (data) {
+            $.post('/admin/menu/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj) $(obj).parents("tr").remove();
@@ -247,26 +230,6 @@
             } else {
                 $('tbody .layui-form-checkbox').removeClass('layui-form-checked');
             }
-        });
-
-
-        // 切换开启和停用状态
-        $('.layui-form-switch').on('click', function () {
-
-            var that = $(this);
-            var id = $(this).prev().attr('id');
-
-            $.post('/admin/category/status/' + id, function (data) {
-                console.log(data);
-                if (data.data.status === 1) {
-                    that.addClass('layui-form-onswitch');
-                    that.html('<em>启用</em>')
-                } else {
-                    that.removeClass('layui-form-onswitch');
-                    that.html('<em>停用</em>')
-                }
-            })
-
         });
 
 

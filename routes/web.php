@@ -50,12 +50,13 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     $router->post('/friendLink/del', 'FriendLinkController@del'); // 删除友情链接
     $router->post('/friendLink/status/{id:[1-9]+}', 'FriendLinkController@status'); // 发布状态
 
-    // 管理员管理
-    $router->get('/administrator/list', 'SinglePageController@lists'); // 单页列表
-    $router->addRoute(['GET', 'POST'],'/administrator/add', 'SinglePageController@add'); // 添加单页
-    $router->addRoute(['GET', 'POST'],'/administrator/edit/{id:[1-9]+}', 'SinglePageController@edit'); // 编辑单页
-    $router->post('/administrator/status/{id:[1-9]+}', 'ArticleController@status'); // 发布状态
-    $router->post('/administrator/del', 'SinglePageController@del'); // 删除单页
+
+    // 菜单
+    $router->get('/menu/list', 'MenuController@lists'); // 菜单列表
+    $router->addRoute(['GET', 'POST'],'/menu/add', 'MenuController@add'); // 添加菜单
+    $router->addRoute(['GET', 'POST'],'/menu/addChild/{id:[1-9]+}', 'MenuController@addChild'); // 添加子菜单
+    $router->addRoute(['GET', 'POST'],'/menu/edit/{id:[1-9]+}', 'MenuController@edit'); // 编辑菜单
+    $router->post('/menu/del', 'MenuController@del'); // 删除菜单
 
 
 });
