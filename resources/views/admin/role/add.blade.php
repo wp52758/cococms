@@ -41,62 +41,68 @@
                     </div>
                 </div>
 
-                <table  class="layui-table">
-                    <tbody>
+                <div class="layui-form-item">
+                    <label for="role_name" class="layui-form-label">
+                        <span class="x-red">*</span>权限</label>
+                    <table  class="layui-table">
+                        <tbody>
 
-                    @foreach($menus as $menu)
-                    <tr>
-                        <td>
+                        @foreach($menus as $menu)
+                        <tr>
+                            <td>
 
-                            <div>
-                                <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $menu['name'] }}">
-                            </div>
-
-                            @if(!empty($menu->permission))
-                                @foreach($menu->permission as $item)
-                                    <div class="layui-input-block">
-                                        <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $item['name'] }}" value="{{ $item['id'] }}">
-                                    </div>
-                                @endforeach
-                            @endif
-
-                            @foreach($menu['child'] as $child2)
-                                @php $px = $loop->depth * 20 @endphp
-                                <div style="margin-left: {{ $px }}px">
-                                    <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $child2['name'] }}">
-                                </div>
-                                @if(!empty($child2->permission))
-                                    <div class="layui-input-block">
-                                        @foreach($child2->permission as $p2)
-                                             <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p2['name'] }}" value="{{ $p2['id'] }}">
-                                        @endforeach
-                                    </div>
-                                @endif
-
-                                @foreach($child2['child'] as $child3)
-                                    @php $px = $loop->depth * 20 @endphp
-                                        <div style="margin-left: {{ $px }}px">
-                                            <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $child3['name'] }}">
-                                        </div>
-                                    @if(!empty($child3->permission))
+                                <div>
+                                    <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $menu['name'] }}">
+                                    @if(count($menu->permission) > 0)
                                         <div class="layui-input-block">
-                                            @foreach($child3->permission as $p3)
-                                                 <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p3['name'] }}" value="{{ $p3['id'] }}">
+                                            @foreach($menu->permission as $item)
+                                                <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $item['name'] }}" value="{{ $item['id'] }}">
                                             @endforeach
                                         </div>
                                     @endif
 
-                                @endforeach
+                                    @foreach($menu['child'] as $child2)
+                                        @php $px = $loop->depth * 20 @endphp
+                                        <div style="margin-left: {{ $px }}px">
+                                            <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $child2['name'] }}">
+                                            @if(count($child2->permission) > 0)
+                                                <div class="layui-input-block">
+                                                    @foreach($child2->permission as $p2)
+                                                        <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p2['name'] }}" value="{{ $p2['id'] }}">
+                                                    @endforeach
+                                                </div>
+                                            @endif
 
-                            @endforeach
+                                            @foreach($child2['child'] as $child3)
+                                                @php $px = $loop->depth * 20 @endphp
+                                                <div style="margin-left: {{ $px }}px">
+                                                    <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $child3['name'] }}">
 
-                        </td>
-                    </tr>
-                    @endforeach
+                                                    @if(count($child3->permission) > 0)
+                                                        <div class="layui-input-block">
+                                                            @foreach($child3->permission as $p3)
+                                                                <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p3['name'] }}" value="{{ $p3['id'] }}">
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                </div>
 
-                    </tbody>
-                </table>
+                                            @endforeach
 
+                                        </div>
+
+
+
+                                    @endforeach
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
 
 
                 <div class="layui-form-item">
@@ -109,7 +115,7 @@
 </div>
 
 
-<script>layui.use(['form', 'layer', 'upload'],
+<script>layui.use(['form', 'layer', 'jquery'],
         function () {
             $ = layui.jquery;
             var form = layui.form,
@@ -122,6 +128,43 @@
                         return '请选填写角色名';
                     }
                 },
+
+
+            });
+
+            $('.layui-form-checkbox').on('click',function () {
+
+
+                if ($(this).hasClass('layui-form-checked')) {
+                    $(this).next('div').children('div').addClass('layui-form-checked')
+                    $(this).nextAll('div').children('div').addClass('layui-form-checked')
+                    $(this).next('div').children('div').children('div').addClass('layui-form-checked')
+                    $(this).nextAll('div').children('div').children('div').addClass('layui-form-checked')
+
+                    $(this).parent('div').prev('div div').addClass('layui-form-checked');
+                    // 第三层级单选
+                    $(this).parent('div').prev('div').parent('div').parent('div').children('div').eq(0).addClass('layui-form-checked')
+
+                } else {
+
+                    var s1 = $(this).siblings('div').hasClass('layui-form-checked');
+
+                    console.log(s1)
+
+                    if(!s1){
+                        $(this).next('div').children('div').removeClass('layui-form-checked')
+                        $(this).nextAll('div').children('div').removeClass('layui-form-checked')
+                        $(this).next('div').children('div').children('div').removeClass('layui-form-checked')
+                        $(this).nextAll('div').children('div').children('div').removeClass('layui-form-checked')
+
+                        $(this).parent('div').prev('div div').removeClass('layui-form-checked');
+                        $(this).parent('div').prev('div').parent('div').parent('div').children('div').eq(0).removeClass('layui-form-checked')
+                    }
+
+
+
+                }
+
 
 
             });

@@ -45,6 +45,7 @@
                             <th>ID</th>
                             <th>权限名称</th>
                             <th>路径</th>
+                            <th>所属菜单</th>
                             <th>操作</th></tr>
                         </thead>
                         <tbody>
@@ -56,7 +57,8 @@
                                 <td>{{ $value['id'] }}</td>
                                 <td>{{ $value['name'] }}</td>
                                 <td>{{ $value['path'] }}</td>
-                                
+                                <td>{{ $value['menu']['name'] }}</td>
+
                                 <td class="td-manage">
                                     <a title="编辑" onclick="xadmin.open('编辑','/admin/permission/edit/{{ $value['id'] }}',500,300)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i></a>

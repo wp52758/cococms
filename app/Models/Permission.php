@@ -37,7 +37,7 @@ class Permission extends Model
         return $permission->update();
     }
 
-    public static function lists(array $conditions, int $page = 0, int $parPage = 10)
+    public static function lists(array $conditions, int $page = 0, int $parPage = 15)
     {
         $permission = Permission::with('menu');
         !empty($conditions['name']) && $permission->where('name', 'like', "%{$conditions['name']}%"); // 模糊匹配查询
