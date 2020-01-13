@@ -52,7 +52,7 @@
                             <td>
 
                                 <div>
-                                    <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $menu['name'] }}">
+                                    {{ $menu['name'] }}
                                     @if(count($menu->permission) > 0)
                                         <div class="layui-input-block">
                                             @foreach($menu->permission as $item)
@@ -64,7 +64,7 @@
                                     @foreach($menu['child'] as $child2)
                                         @php $px = $loop->depth * 20 @endphp
                                         <div style="margin-left: {{ $px }}px">
-                                            <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $child2['name'] }}">
+                                            {{ $child2['name'] }}
                                             @if(count($child2->permission) > 0)
                                                 <div class="layui-input-block">
                                                     @foreach($child2->permission as $p2)
@@ -141,8 +141,6 @@
                     $(this).next('div').children('div').children('div').addClass('layui-form-checked')
                     $(this).nextAll('div').children('div').children('div').addClass('layui-form-checked')
 
-                    $(this).parent('div').prev('div div').addClass('layui-form-checked');
-                    // 第三层级单选
                     $(this).parent('div').prev('div').parent('div').parent('div').children('div').eq(0).addClass('layui-form-checked')
 
                 } else {
@@ -151,15 +149,22 @@
 
                     console.log(s1)
 
-                    if(!s1){
-                        $(this).next('div').children('div').removeClass('layui-form-checked')
-                        $(this).nextAll('div').children('div').removeClass('layui-form-checked')
-                        $(this).next('div').children('div').children('div').removeClass('layui-form-checked')
-                        $(this).nextAll('div').children('div').children('div').removeClass('layui-form-checked')
+                    $(this).next('div').children('div').removeClass('layui-form-checked')
+                    $(this).nextAll('div').children('div').removeClass('layui-form-checked')
 
-                        $(this).parent('div').prev('div div').removeClass('layui-form-checked');
-                        $(this).parent('div').prev('div').parent('div').parent('div').children('div').eq(0).removeClass('layui-form-checked')
+                    $(this).next('div').children('div').children('div').removeClass('layui-form-checked')
+                    $(this).nextAll('div').children('div').children('div').removeClass('layui-form-checked')
+
+
+
+
+                    if(!s1){
+                        //
+
                     }
+
+
+                    // 任何叶子节点都没有被选中的话，
 
 
 
@@ -173,6 +178,7 @@
             form.on('submit(add)',
                 function (data) {
                     console.log(data);
+                    return false;
                     //发异步，把数据提交给php
                     $.post('/admin/role/add',data.field,function (data) {
                         console.log(data);
