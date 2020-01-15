@@ -53,7 +53,7 @@
                                 <td>
                                     <input type="checkbox" name="{{ $value['id'] }}" lay-skin="primary"></td>
                                 <td>{{ $value['id'] }}</td>
-                                <td>{{ $value['name'] }}</td>
+                                <td>{{ $value['role_name'] }}</td>
                                 <td class="td-manage">
                                     <a title="编辑" onclick="xadmin.open('编辑','/admin/role/edit/{{ $value['id'] }}',800,800)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i></a>

@@ -61,7 +61,7 @@ class SinglePage extends Model
 
     public static function lists()
     {
-        return SinglePage::with('category')->where('is_del', 0)->orderBy('id', 'DESC')->get();
+        return SinglePage::with('category')->orderBy('id', 'DESC')->get();
     }
 
     public static function del(SinglePage $singlePage)

@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 class Permission extends Model
 {
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id', 'id');

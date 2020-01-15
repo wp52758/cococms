@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>添加</title>
+    <title>编辑</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -37,7 +37,7 @@
                         <span class="x-red">*</span>角色名</label>
                     <div class="layui-input-inline">
                         <input type="text" id="role_name" name="role_name" required="" lay-verify="role_name" autocomplete="off"
-                               class="layui-input">
+                               class="layui-input" value="{{ $role['role_name'] }}">
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                                     @if(count($menu->permission) > 0)
                                         <div class="layui-input-block">
                                             @foreach($menu->permission as $item)
-                                                <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $item['name'] }}" value="{{ $item['id'] }}">
+                                                <input name="id[]" @if(in_array($item['id'],$permission)) checked @endif lay-skin="primary" type="checkbox" title="{{ $item['name'] }}" value="{{ $item['id'] }}">
                                             @endforeach
                                         </div>
                                     @endif
@@ -68,7 +68,7 @@
                                             @if(count($child2->permission) > 0)
                                                 <div class="layui-input-block">
                                                     @foreach($child2->permission as $p2)
-                                                        <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p2['name'] }}" value="{{ $p2['id'] }}">
+                                                        <input name="id[]" @if(in_array($p2['id'],$permission)) checked @endif lay-skin="primary" type="checkbox" title="{{ $p2['name'] }}" value="{{ $p2['id'] }}">
                                                     @endforeach
                                                 </div>
                                             @endif
@@ -81,7 +81,7 @@
                                                     @if(count($child3->permission) > 0)
                                                         <div class="layui-input-block">
                                                             @foreach($child3->permission as $p3)
-                                                                <input name="id[]" lay-skin="primary" type="checkbox" title="{{ $p3['name'] }}" value="{{ $p3['id'] }}">
+                                                                <input name="id[]" @if(in_array($p3['id'],$permission)) checked @endif lay-skin="primary" type="checkbox" title="{{ $p3['name'] }}" value="{{ $p3['id'] }}">
                                                             @endforeach
                                                         </div>
                                                     @endif
@@ -137,7 +137,7 @@
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给php
-                    $.post('/admin/role/add',data.field,function (data) {
+                    $.post('/admin/role/edit/{{ $role['id'] }}',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

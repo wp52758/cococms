@@ -15,7 +15,6 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('id');
             $table->string('title',20)->default('')->comment('标题');
             $table->string('name',20)->default('')->comment('姓名');
             $table->string('mobile',11)->default('')->comment('联系人手机号');
@@ -23,7 +22,6 @@ class CreateMessagesTable extends Migration
             $table->string('address',40)->default('')->comment('联系人地址');
             $table->string('content',300)->default('')->comment('留言内容');
             $table->boolean('state')->default(0)->comment('查看状态');
-            $table->timestamps();
             $table->timestamps();
         });
     }
