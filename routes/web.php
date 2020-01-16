@@ -70,6 +70,12 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     $router->addRoute(['GET', 'POST'],'/role/edit/{id:[1-9]+}', 'RoleController@edit'); // 编辑角色
     $router->post('/role/del', 'RoleController@del'); // 删除角色
 
+    // 管理员管理
+    $router->get('/admin/list', 'AdminController@lists'); // 管理员列表
+    $router->addRoute(['GET', 'POST'],'/admin/add', 'AdminController@add'); // 添加管理员
+    $router->addRoute(['GET', 'POST'],'/admin/edit/{id:[1-9]+}', 'AdminController@edit'); // 编辑管理员
+    $router->post('/admin/del', 'AdminController@del'); // 删除管理员
+
 
 });
 
