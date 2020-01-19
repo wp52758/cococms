@@ -33,7 +33,7 @@
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加','/admin/permission/add',500,300)">
+                    <button class="layui-btn" onclick="xadmin.open('添加','/admin/permission/add',500,500)">
                         <i class="layui-icon"></i>添加</button></div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
@@ -46,6 +46,7 @@
                             <th>权限名称</th>
                             <th>路径</th>
                             <th>所属菜单</th>
+                            <th>是否是目录</th>
                             <th>操作</th></tr>
                         </thead>
                         <tbody>
@@ -58,9 +59,9 @@
                                 <td>{{ $value['name'] }}</td>
                                 <td>{{ $value['path'] }}</td>
                                 <td>{{ $value['menu']['name'] }}</td>
-
+                                <td>@if($value['is_menu'] == 1) 是 @else 是不 @endif</td>
                                 <td class="td-manage">
-                                    <a title="编辑" onclick="xadmin.open('编辑','/admin/permission/edit/{{ $value['id'] }}',500,300)" href="javascript:;">
+                                    <a title="编辑" onclick="xadmin.open('编辑','/admin/permission/edit/{{ $value['id'] }}',500,500)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i></a>
                                     <a title="删除" onclick="delOne('{{ $value['id'] }}',this)" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i></a>

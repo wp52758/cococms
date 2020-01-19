@@ -31,6 +31,7 @@ class Permission extends Model
         $permission->menu_id = (int)$data['menu_id'];
         $permission->name = $data['name'];
         $permission->path = $data['path'];
+        $permission->is_menu = (int)$data['is_menu'];
         return $permission->save();
     }
 
@@ -39,6 +40,7 @@ class Permission extends Model
         !empty($data['menu_id']) && $permission->menu_id = (int)$data['menu_id'];
         !empty($data['name']) && $permission->name = $data['name'];
         !empty($data['path']) && $permission->path = $data['path'];
+        !empty($data['is_menu']) && $permission->is_menu = (int)$data['is_menu'];
         return $permission->update();
     }
 

@@ -25,6 +25,8 @@ $app = new Laravel\Lumen\Application(
 
  $app->withEloquent();
 
+$app->configure('app');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -85,6 +87,8 @@ $app->singleton(
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(\Youngyezi\Captcha\CaptchaServiceProvider::class);
+$app->register(Illuminate\Encryption\EncryptionServiceProvider::class);
+
 
 
 /*

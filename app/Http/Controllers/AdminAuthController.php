@@ -6,23 +6,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Tymon\JWTAuth\JWTAuth;
 
 class AdminAuthController extends Controller
 {
 
-    protected $jwt = null;
-
-    /**
-     * 为了拿到token，我们必须注入JWTAuth
-     * AdminAuthController constructor.
-     * @param JWTAuth $jwt
-     */
-    public function __construct(JWTAuth $jwt)
-    {
-        parent::__construct();
-        $this->jwt = $jwt;
-    }
 
     public function login(Request $request)
     {
@@ -70,10 +59,10 @@ class AdminAuthController extends Controller
             return $this->response->responseJSON();
         }
 
-        $token = $this->jwt->fromUser($admin); // 获取token
-        $data = $this->respondWithToken($token); // 组装相关信息
 
-        $this->response->setData($data);
+
+        setcookie('user_id',Crypt::encrypt($admin->id), time() + 36000);
+
         return $this->response->responseJSON();
 
 

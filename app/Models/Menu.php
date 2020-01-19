@@ -29,6 +29,7 @@ class Menu extends Model
         $menu = new Menu();
         !empty($data['parent_id']) && $menu->parent_id = (int)$data['parent_id'];
         $menu->name = $data['name'];
+        !empty($data['icon_code']) && $menu->icon_code = $data['icon_code'];
         return $menu->save();
 
     }
@@ -36,7 +37,8 @@ class Menu extends Model
     public static function edit(Menu $menu, $data)
     {
         !empty($data['parent_id']) && $menu->parent_id = (int)$data['parent_id'];
-        $menu->name = $data['name'];
+        !empty($data['name']) && $menu->name = $data['name'];
+        !empty($data['icon_code']) && $menu->icon_code = $data['icon_code'];
         return $menu->update();
     }
 

@@ -64,8 +64,7 @@
                         layer.msg(data.msg);
 
                     }else{
-                        setCookie('token', data.data.access_token, 's3600');
-                        location.href='/admin/index?token=' + data.data.access_token
+                        location.href='/admin/index'
                     }
 
                 });

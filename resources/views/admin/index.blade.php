@@ -64,7 +64,7 @@
 
             </li>
             <li>
-                <a onclick="xadmin.add_tab('网址配置','/admin/siteSetting?token={{ $_GET['token'] }}')">
+                <a onclick="xadmin.add_tab('网址配置','/admin/siteSetting')">
                     <i class="iconfont left-nav-li" lay-tips="网址配置">&#xe6ae;</i>
                     <cite>网站配置</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
@@ -77,31 +77,31 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('文章分类','/admin/category/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('文章分类','/admin/category/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章分类</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('文章列表','/admin/article/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('文章列表','/admin/article/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('单页','/admin/singlePage/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('单页','/admin/singlePage/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>单页</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a onclick="xadmin.add_tab('在线留言','/admin/message/list?token={{ $_GET['token'] }}')">
+                <a onclick="xadmin.add_tab('在线留言','/admin/message/list')">
                     <i class="iconfont left-nav-li" lay-tips="在线留言">&#xe72d;</i>
                     <cite>在线留言</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
 
             </li>
             <li>
-                <a onclick="xadmin.add_tab('友情链接','/admin/friendLink/list?token={{ $_GET['token'] }}')">
+                <a onclick="xadmin.add_tab('友情链接','/admin/friendLink/list')">
                     <i class="iconfont left-nav-li" lay-tips="友情链接">&#xe6f7;</i>
                     <cite>友情链接</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
@@ -114,22 +114,22 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('管理员列表','/admin/admin/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('管理员列表','/admin/admin/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('角色管理','/admin/role/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('角色管理','/admin/role/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('菜单管理','/admin/menu/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('菜单管理','/admin/menu/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>菜单管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('权限管理','/admin/permission/list?token={{ $_GET['token'] }}')">
+                        <a onclick="xadmin.add_tab('权限管理','/admin/permission/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>权限管理</cite></a>
                     </li>

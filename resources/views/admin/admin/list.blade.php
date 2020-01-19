@@ -54,7 +54,6 @@
                             </th>
                             <th>ID</th>
                             <th>用户名</th>
-                            <th>手机号</th>
                             <th>email</th>
                             <th>状态</th>
                             <th>角色</th>
@@ -66,15 +65,21 @@
                         @foreach($admins as $admin)
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="{{ $admin['id'] }}" lay-skin="primary"></td>
+                                    <input type="checkbox" name="{{ $admin['id'] }}" lay-skin="primary">
+                                </td>
                                 <td>{{ $admin['id'] }}</td>
                                 <td>{{ $admin['user_name'] }}</td>
-                                <td>{{ $admin['mobile'] }}</td>
                                 <td>{{ $admin['email'] }}</td>
-                                <td>{{ $admin['email'] }}</td>
-                                <td><input type="checkbox" name="switch" lay-text="开启|停用"
+                                <td>
+                                    <input type="checkbox" name="switch" lay-text="开启|停用"
                                            @if($admin['state'] == 1) checked @endif
-                                           lay-skin="switch" id="{{ $admin['id'] }}"></td>
+                                           lay-skin="switch" id="{{ $admin['id'] }}">
+                                </td>
+                                <td>
+                                    @foreach($admin->roles as $role)
+                                        {{ $role->role_name }}、
+                                        @endforeach
+                                </td>
                                 <td>{{ $admin['created_at'] }}</td>
                                 <td class="td-manage">
                                     <a title="编辑" onclick="xadmin.open('编辑','/admin/admin/edit/{{ $admin['id'] }}',500,500)" href="javascript:;">

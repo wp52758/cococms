@@ -61,6 +61,17 @@
                 </div>
 
                 <div class="layui-form-item">
+                    <label for="is_menu" class="layui-form-label">
+                        是否是目录</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-input-inline">
+                            <input type="radio" name="is_menu" value="1" title="是" @if($permission['is_menu'] == 1) checked @endif >
+                            <input type="radio" name="is_menu" value="0" title="不是" @if($permission['is_menu'] == 0) checked @endif>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label"></label>
                     <button class="layui-btn" lay-filter="add" lay-submit="">编辑</button>
                 </div>

@@ -86,7 +86,7 @@
 	    if (h == null || h == '') {
 	        var h=($(window).height() - 50);
 	    };
-        url = url + '?token=' + getCookie('token')
+
 	    var index = layer.open({
 	        type: 2,
 	        area: [w+'px', h +'px'],

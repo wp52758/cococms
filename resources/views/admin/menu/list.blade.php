@@ -46,7 +46,7 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-                    <button class="layui-btn" onclick="xadmin.open('增加菜单','/admin/menu/add',500,200)" lay-submit=""
+                    <button class="layui-btn" onclick="xadmin.open('增加菜单','/admin/menu/add',500,300)" lay-submit=""
                             lay-filter="sreach"><i class="layui-icon"></i>增加菜单
                     </button>
                 </div>
@@ -79,11 +79,11 @@
 
                                 <td class="td-manage">
                                     <button class="layui-btn layui-btn layui-btn-xs"
-                                            onclick="xadmin.open('编辑','/admin/menu/edit/{{ $value['id'] }}',500,200)"><i
+                                            onclick="xadmin.open('编辑','/admin/menu/edit/{{ $value['id'] }}',500,300)"><i
                                                 class="layui-icon">&#xe642;</i>编辑
                                     </button>
                                     <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                            onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $value['id'] }}',500,200)">
+                                            onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $value['id'] }}',500,300)">
                                         <i class="layui-icon">&#xe642;</i>添加子菜单
 
                                     </button>
@@ -108,11 +108,11 @@
 
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn layui-btn-xs"
-                                                onclick="xadmin.open('编辑','/admin/menu/edit/{{ $child['id'] }}',500,500)"><i
+                                                onclick="xadmin.open('编辑','/admin/menu/edit/{{ $child['id'] }}',500,300)"><i
                                                     class="layui-icon">&#xe642;</i>编辑
                                         </button>
                                         <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $child['id'] }}',500,500)">
+                                                onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $child['id'] }}',500,300)">
                                             <i class="layui-icon">&#xe642;</i>添加子菜单
                                         </button>
                                         <button class="layui-btn-danger layui-btn layui-btn-xs"
@@ -135,11 +135,11 @@
 
                                         <td class="td-manage">
                                             <button class="layui-btn layui-btn layui-btn-xs"
-                                                    onclick="xadmin.open('编辑','/admin/menu/edit/{{ $cd['id'] }}',500,500)">
+                                                    onclick="xadmin.open('编辑','/admin/menu/edit/{{ $cd['id'] }}',500,300)">
                                                 <i class="layui-icon">&#xe642;</i>编辑
                                             </button>
                                             <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                                    onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $cd['id'] }}',500,500)">
+                                                    onclick="xadmin.open('添加子菜单','/admin/menu/addChild/{{ $cd['id'] }}',500,300)">
                                                 <i class="layui-icon">&#xe642;</i>添加子菜单
                                             </button>
                                             <button class="layui-btn-danger layui-btn layui-btn-xs"
