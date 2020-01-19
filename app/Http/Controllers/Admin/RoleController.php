@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function add(Request $request)
     {
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 验证数据；验证角色名是否重复
             Role::add($request->input(), $request->input('id'));
             return $this->response->responseJSON();
@@ -44,7 +44,7 @@ class RoleController extends Controller
         $role = Role::with('permissions')->where('id', $id)->first();
         // todo 如果数据不存在，跳转到错误页面
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 验证数据；验证角色名是否重复
             Role::edit($role, $request->input('id'));
             return $this->response->responseJSON();

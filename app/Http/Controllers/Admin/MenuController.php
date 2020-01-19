@@ -18,7 +18,7 @@ class MenuController extends Controller
     public function add(Request $request)
     {
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // todo 对新增数据做验证；数据不能重复做验证
 
@@ -39,7 +39,7 @@ class MenuController extends Controller
 //        }
 
         // 判断不是不post方式提交数据
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // todo 数据验证；数据不能重复做验证
 
@@ -59,11 +59,13 @@ class MenuController extends Controller
 //            //跳转到错误页面
 //        }
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
+
             // todo 数据验证
             Menu::edit($category, $request->input());
             return $this->response->responseJSON();
         }
+
 
         $data['menu'] = $category;
         return view('admin.menu.edit', $data);

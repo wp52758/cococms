@@ -126,7 +126,7 @@
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给php
-                    $.post('/admin/admin/edit/{{ $admin['id'] }}',data.field,function (data) {
+                    AjaxPost('/admin/admin/edit/{{ $admin['id'] }}',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

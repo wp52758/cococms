@@ -129,7 +129,7 @@
 
     function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/permission/del', {ids: ids}, function (data) {
+            AjaxPost('/admin/permission/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj){

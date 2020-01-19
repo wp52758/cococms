@@ -61,7 +61,7 @@
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给php
-                    $.post('/admin/menu/edit/{{ $menu['id'] }}',data.field,function (data) {
+                    AjaxPost('/admin/menu/edit/{{ $menu['id'] }}',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

@@ -59,7 +59,7 @@
 
 	Xadmin.prototype.add_lay_tab = function(title,url,id) {
 		element.tabAdd('xbs_tab', {
-	       title: title 
+	       title: title
 	        ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
 	        ,id: id
 	    })
@@ -86,6 +86,7 @@
 	    if (h == null || h == '') {
 	        var h=($(window).height() - 50);
 	    };
+        url = url + '?token=' + getCookie('token')
 	    var index = layer.open({
 	        type: 2,
 	        area: [w+'px', h +'px'],
@@ -97,7 +98,7 @@
 	        content: url
 	    });
 	    if(full){
-	       layer.full(index); 
+	       layer.full(index);
 	    }
 	}
 	/**
@@ -194,7 +195,7 @@
 		});
 	};
 	win.xadmin = new Xadmin();
-	
+
 }(window);
 
 layui.use(['layer','element','jquery'],function() {
@@ -259,7 +260,7 @@ layui.use(['layer','element','jquery'],function() {
                 $(this).siblings().removeClass('open');
             }
         }
-        event.stopPropagation(); 
+        event.stopPropagation();
     })
     var left_tips_index = null;
     $('.left-nav #nav').on('mouseenter', '.left-nav-li', function(event) {
@@ -270,7 +271,7 @@ layui.use(['layer','element','jquery'],function() {
     })
 
     $('.left-nav #nav').on('mouseout', '.left-nav-li', function(event) {
-        layer.close(left_tips_index); 
+        layer.close(left_tips_index);
     })
     // 隐藏左侧
     $('.container .left_open i').click(function(event) {
@@ -582,3 +583,72 @@ if (!raw) {
 }
 return rawHMACMD5(key, string)
 }
+
+//写cookies
+
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+//删除cookies
+function delCookie(name)
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+//使用示例
+// setCookie("name","hayden");
+// alert(getCookie("name"));
+
+//程序代码
+function setCookie(name,value,time)
+{
+    var strsec = getsec(time);
+    var exp = new Date();
+    exp.setTime(exp.getTime() + strsec*1);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+function getsec(str)
+{
+    var str1=str.substring(1,str.length)*1;
+    var str2=str.substring(0,1);
+    if (str2=="s")
+    {
+        return str1*1000;
+    }
+    else if (str2=="h")
+    {
+        return str1*60*60*1000;
+    }
+    else if (str2=="d")
+    {
+        return str1*24*60*60*1000;
+    }
+}
+
+function AjaxPost(url,data, success)
+{
+    $.ajax({
+        headers:{
+            'Authorization':'Bearer ' + getCookie('token')
+        },
+
+        type: 'POST',
+        url: url,
+        data: data,
+        success: success,
+        dataType: 'json'
+    });
+}
+

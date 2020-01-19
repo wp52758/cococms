@@ -89,7 +89,7 @@
 
     function del(id, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/singlePage/del', {id: id}, function (data) {
+            AjaxPost('/admin/singlePage/del', {id: id}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj){

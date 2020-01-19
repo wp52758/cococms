@@ -110,7 +110,7 @@
                 var that = $(this);
                 var id = $(this).prev().attr('id');
 
-                $.post('/admin/article/status/' + id, function (data) {
+                AjaxPost('/admin/article/status/' + id, function (data) {
                     console.log(data);
                     if (data.data.status === 1) {
                         that.addClass('layui-form-onswitch');
@@ -147,7 +147,7 @@
 
     function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/friendLink/del', {ids: ids}, function (data) {
+            AjaxPost('/admin/friendLink/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj){

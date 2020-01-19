@@ -81,10 +81,13 @@
     </div>
 </div>
 <script>layui.use(['form', 'layer', 'jquery', 'upload'],
+
         function () {
             $ = layui.jquery;
             var form = layui.form,
                 layer = layui.layer;
+
+
 
             //自定义验证规则
             form.verify({
@@ -104,8 +107,13 @@
             form.on('submit(add)',
                 function (data) {
                     console.log(data);
+
+                    $.ajaxSetup({
+                        headers:{token:'Bearer ' + getCookie('token')}
+                    });
+
                     //发异步，把数据提交给php
-                    $.post('/admin/category/edit/{{ $category['id'] }}',data.field,function (data) {
+                    AjaxPost('/admin/category/edit/{{ $category['id'] }}',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

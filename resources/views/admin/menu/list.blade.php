@@ -79,7 +79,7 @@
 
                                 <td class="td-manage">
                                     <button class="layui-btn layui-btn layui-btn-xs"
-                                            onclick="xadmin.open('编辑','/admin/menu/edit/{{ $value['id'] }}',500200)"><i
+                                            onclick="xadmin.open('编辑','/admin/menu/edit/{{ $value['id'] }}',500,200)"><i
                                                 class="layui-icon">&#xe642;</i>编辑
                                     </button>
                                     <button class="layui-btn layui-btn-warm layui-btn-xs"
@@ -188,7 +188,7 @@
 
     function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/menu/del', {ids: ids}, function (data) {
+            AjaxPost('/admin/menu/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj) $(obj).parents("tr").remove();

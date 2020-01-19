@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
 
         // 判断不是不post方式提交数据
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // 对新增数据做验证
             $this->validate($request, AddCategory::rules(), AddCategory::msg(), AddCategory::attr());
@@ -56,7 +56,7 @@ class CategoryController extends Controller
 //        }
 
         // 判断不是不post方式提交数据
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // 添加分类
             Category::add($request->input());
@@ -80,7 +80,7 @@ class CategoryController extends Controller
 //            //跳转到错误页面
 //        }
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // 添加分类
             Category::edit($category, $request->input());

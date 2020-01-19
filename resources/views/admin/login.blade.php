@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -21,13 +22,27 @@
 <body class="login-bg">
 
 <div class="login layui-anim layui-anim-up">
-    <div class="message">x-admin2.0-管理登录</div>
+    <div class="message">TEST CMS</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" >
-        <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+        <input name="user_name" placeholder="登录名"  type="text" lay-verify="required" class="layui-input" >
         <hr class="hr15">
         <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+        <hr class="hr15">
+        <div class="layui-form-item">
+            <div class="layui-row">
+                <div class="layui-col-xs7">
+                    <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码"
+                           class="layui-input" autocomplete="off">
+                </div>
+                <div class="layui-col-xs5">
+                    <div style="margin-left: 10px;">
+                        <img src="" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >
@@ -36,32 +51,43 @@
 
 <script>
     $(function  () {
-        layui.use('form', function(){
+        layui.use(['form','layer','jquery'], function(){
             var form = layui.form;
-            // layer.msg('玩命卖萌中', function(){
-            //   //关闭后的操作
-            //   });
+
             //监听提交
             form.on('submit(login)', function(data){
-                // alert(888)
-                layer.msg(JSON.stringify(data.field),function(){
-                    location.href='index.html'
+
+                AjaxPost('/admin/login',data.field,function (data) {
+                    console.log(data);
+
+                    if(data.code !== 200){
+                        layer.msg(data.msg);
+
+                    }else{
+                        setCookie('token', data.data.access_token, 's3600');
+                        location.href='/admin/index?token=' + data.data.access_token
+                    }
+
                 });
                 return false;
+
             });
         });
-    })
+    });
+
+    $('#LAY-user-get-vercode').click(function () {
+        captcha();
+    });
+
+    captcha();
+    function captcha() {
+        $.getJSON('/captcha', function (data) {
+            $('#LAY-user-get-vercode').attr('src', data.data);
+        });
+    }
+
 </script>
 <!-- 底部结束 -->
-<script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+
 </body>
 </html>

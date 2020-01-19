@@ -172,7 +172,7 @@
                 function (data) {
                     console.log(data.field);
                     //发异步，把数据提交给php
-                    $.post('/admin/siteSetting/',data.field,function (data) {
+                    AjaxPost('/admin/siteSetting/',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

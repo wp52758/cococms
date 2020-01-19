@@ -20,7 +20,7 @@ class PermissionController extends Controller
     public function add(Request $request)
     {
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 验证数据；防止重复数据
 
             Permission::add($request->input());
@@ -40,7 +40,7 @@ class PermissionController extends Controller
 //            //跳转到错误页面
 //        }
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
 
             // todo 验证数据；防止重复数据
 

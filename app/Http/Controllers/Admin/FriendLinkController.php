@@ -17,7 +17,7 @@ class FriendLinkController extends Controller
 {
     public function add(Request $request)
     {
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 数据验证
             FriendLink::add($request->input());
             // todo 判断是否添加成功
@@ -32,7 +32,7 @@ class FriendLinkController extends Controller
         $friendLink = FriendLink::where('id', $id)->first();
         // todo 验证文章是否存在，如果不存在跳转到错误提示页面
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 数据验证
             FriendLink::edit($friendLink, $request->input());
             // todo 判断是否修改成功

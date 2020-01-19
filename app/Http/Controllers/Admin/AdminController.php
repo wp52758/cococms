@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function add(Request $request)
     {
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 验证数据；验证管理员不能重复
             Admin::add($request->input(), $request->input('roles'));
 
@@ -37,7 +37,7 @@ class AdminController extends Controller
         $admin = Admin::with('roles')->where('id', $id)->first();
         // todo 如果数据不存在，跳转到错误页面
 
-        if ($request->post()) {
+        if ($request->isMethod('post')) {
             // todo 验证数据；验证是否重复
             Admin::edit($admin, $request->input(), $request->input('roles'));
             return $this->response->responseJSON();

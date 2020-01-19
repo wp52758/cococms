@@ -221,7 +221,7 @@
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给php
-                    $.post('/admin/article/add',data.field,function (data) {
+                    AjaxPost('/admin/article/add',data.field,function (data) {
                         console.log(data);
 
                         layer.alert(data.msg, {

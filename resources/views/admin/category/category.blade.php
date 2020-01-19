@@ -46,7 +46,7 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-                    <button class="layui-btn" onclick="xadmin.open('增加分类','/admin/category/add',800,500)" lay-submit=""
+                    <button class="layui-btn" onclick="xadmin.open('增加分类','/admin/category/add',500,500)" lay-submit=""
                             lay-filter="sreach"><i class="layui-icon"></i>增加分类
                     </button>
                 </div>
@@ -86,11 +86,11 @@
                                 </td>
                                 <td class="td-manage">
                                     <button class="layui-btn layui-btn layui-btn-xs"
-                                            onclick="xadmin.open('编辑','/admin/category/edit/{{ $value['id'] }}',800,500)"><i
+                                            onclick="xadmin.open('编辑','/admin/category/edit/{{ $value['id'] }}',500,500)"><i
                                                 class="layui-icon">&#xe642;</i>编辑
                                     </button>
                                     <button class="layui-btn layui-btn-warm layui-btn-xs"
-                                            onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $value['id'] }}',800,500)">
+                                            onclick="xadmin.open('添加子栏目','/admin/category/addChild/{{ $value['id'] }}',500,500)">
                                         <i class="layui-icon">&#xe642;</i>添加子栏目
 
                                     </button>
@@ -120,7 +120,7 @@
                                     </td>
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn layui-btn-xs"
-                                                onclick="xadmin.open('编辑','/admin/category/edit/{{ $child['id'] }}',800,500)"><i
+                                                onclick="xadmin.open('编辑','/admin/category/edit/{{ $child['id'] }}',500,500)"><i
                                                     class="layui-icon">&#xe642;</i>编辑
                                         </button>
                                         <button class="layui-btn layui-btn-warm layui-btn-xs"
@@ -205,7 +205,7 @@
 
     function del(ids, obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.post('/admin/category/del', {ids: ids}, function (data) {
+            AjaxPost('/admin/category/del', {ids: ids}, function (data) {
                 console.log(data);
                 if (data.code === 200) {
                     if(obj) $(obj).parents("tr").remove();
@@ -256,7 +256,7 @@
             var that = $(this);
             var id = $(this).prev().attr('id');
 
-            $.post('/admin/category/status/' + id, function (data) {
+            AjaxPost('/admin/category/status/' + id, function (data) {
                 console.log(data);
                 if (data.data.status === 1) {
                     that.addClass('layui-form-onswitch');

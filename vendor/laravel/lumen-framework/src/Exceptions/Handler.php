@@ -3,21 +3,18 @@
 namespace Laravel\Lumen\Exceptions;
 
 use Exception;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\Console\Application as ConsoleApplication;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 
 class Handler implements ExceptionHandler
 {
@@ -82,7 +79,7 @@ class Handler implements ExceptionHandler
     }
 
     /**
-     * Render an exception into a response.
+     * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $e
@@ -106,37 +103,6 @@ class Handler implements ExceptionHandler
             return $e->getResponse();
         }
 
-        return $request->expectsJson()
-                        ? $this->prepareJsonResponse($request, $e)
-                        : $this->prepareResponse($request, $e);
-    }
-
-    /**
-     * Prepare a JSON response for the given exception.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception $e
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function prepareJsonResponse($request, Exception $e)
-    {
-        return new JsonResponse(
-            $this->convertExceptionToArray($e),
-            $this->isHttpException($e) ? $e->getStatusCode() : 500,
-            $this->isHttpException($e) ? $e->getHeaders() : [],
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-        );
-    }
-
-    /**
-     * Prepare a response for the given exception.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception $e
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function prepareResponse($request, Exception $e)
-    {
         $fe = FlattenException::create($e);
 
         $handler = new SymfonyExceptionHandler(env('APP_DEBUG', config('app.debug', false)));
@@ -148,27 +114,6 @@ class Handler implements ExceptionHandler
         $response->exception = $e;
 
         return $response;
-    }
-
-    /**
-     * Convert the given exception to an array.
-     *
-     * @param  \Exception  $e
-     * @return array
-     */
-    protected function convertExceptionToArray(Exception $e)
-    {
-        return env('APP_DEBUG', config('app.debug', false)) ? [
-            'message' => $e->getMessage(),
-            'exception' => get_class($e),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'trace' => collect($e->getTrace())->map(function ($trace) {
-                return Arr::except($trace, ['args']);
-            })->all(),
-        ] : [
-            'message' => $this->isHttpException($e) ? $e->getMessage() : 'Server Error',
-        ];
     }
 
     /**
@@ -211,16 +156,5 @@ EOF;
     public function renderForConsole($output, Exception $e)
     {
         (new ConsoleApplication)->renderException($e, $output);
-    }
-
-    /**
-     * Determine if the given exception is an HTTP exception.
-     *
-     * @param  \Exception  $e
-     * @return bool
-     */
-    protected function isHttpException(Exception $e)
-    {
-        return $e instanceof HttpExceptionInterface;
     }
 }
