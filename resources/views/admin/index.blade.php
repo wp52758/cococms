@@ -63,78 +63,42 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
 
             </li>
-            <li>
-                <a onclick="xadmin.add_tab('网址配置','/admin/siteSetting')">
-                    <i class="iconfont left-nav-li" lay-tips="网址配置">&#xe6ae;</i>
-                    <cite>网站配置</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
 
-            </li>
+            @foreach($menus as $menu)
+                @if(!isset($menusId[$menu['id']])) @continue @endif
             <li>
-                <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="文章管理">&#xe6fc;</i>
-                    <cite>文章管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <a @if(!empty($menusId[$menu['id']])) onclick="xadmin.add_tab('{{ $menu['name'] }}','{{ $menusId[$menu['id']] }}')" @else href="javascript:;" @endif>
+                    <i class="iconfont left-nav-li" lay-tips="{{ $menu['name'] }}">{!! $menu['icon_code'] !!}</i>
+                    <cite>{{ $menu['name'] }}</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+
                 <ul class="sub-menu">
-                    <li>
-                        <a onclick="xadmin.add_tab('文章分类','/admin/category/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章分类</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('文章列表','/admin/article/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章列表</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('单页','/admin/singlePage/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>单页</cite></a>
-                    </li>
+                    @foreach($menu['child'] as $value)
+                        @if(!isset($menusId[$value['id']])) @continue @endif
+                        <li>
+                            <a @if(!empty($menusId[$value['id']])) onclick="xadmin.add_tab('{{ $value['name'] }}','{{ $menusId[$value['id']] }}')" @else href="javascript:;" @endif>
+                                <i class="iconfont">@if(!empty($value['icon_code'])) {{ $value['icon_code'] }} @else &#xe6a7; @endif</i>
+                                <cite>{{ $value['name'] }}</cite>
+                            </a>
+                            <ul class="sub-menu">
+                                @foreach($value['child'] as $val)
+                                    @if(!isset($menusId[$val['id']])) @continue @endif
+                                    <li>
+                                        <a @if(!empty($menusId[$val['id']])) onclick="xadmin.add_tab('{{ $val['name'] }}','{{ $menusId[$val['id']] }}')" @else href="javascript:;" @endif>
+                                            <i class="iconfont">@if(!empty($val['icon_code'])) {{ $val['icon_code'] }} @else &#xe6a7; @endif</i>
+                                            <cite>{{ $val['name'] }}</cite>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                        </li>
+                    @endforeach
                 </ul>
-            </li>
-            <li>
-                <a onclick="xadmin.add_tab('在线留言','/admin/message/list')">
-                    <i class="iconfont left-nav-li" lay-tips="在线留言">&#xe72d;</i>
-                    <cite>在线留言</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
 
             </li>
-            <li>
-                <a onclick="xadmin.add_tab('友情链接','/admin/friendLink/list')">
-                    <i class="iconfont left-nav-li" lay-tips="友情链接">&#xe6f7;</i>
-                    <cite>友情链接</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
-
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
-                    <cite>管理员管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
-                <ul class="sub-menu">
-                    <li>
-                        <a onclick="xadmin.add_tab('管理员列表','/admin/admin/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>管理员列表</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('角色管理','/admin/role/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>角色管理</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('菜单管理','/admin/menu/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>菜单管理</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('权限管理','/admin/permission/list')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限管理</cite></a>
-                    </li>
-                </ul>
-            </li>
+            @endforeach
 
         </ul>
     </div>
@@ -160,7 +124,7 @@
         </div>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='/admin/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/admin/article/list' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
         <div id="tab_show"></div>

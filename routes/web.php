@@ -15,7 +15,7 @@ $router->post('/admin/login', 'AdminAuthController@login');
 $router->post('/admin/logout', 'AdminAuthController@logout');
 $router->get('/admin/login', 'Admin\\AuthController@login'); // 登录
 
-$router->group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth.admin'], function () use ($router) {
+$router->group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth.admin']], function () use ($router) {
 
 
     $router->addRoute(['GET', 'POST'], '/index', 'IndexController@index');

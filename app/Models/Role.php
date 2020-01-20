@@ -21,6 +21,12 @@ class Role extends Model
         return $this->belongsToMany(Permission::class, 'role_permissions', 'role_id', 'permission_id');
     }
 
+    public function isMenuPermissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permissions', 'role_id', 'permission_id')
+            ->where('is_menu',1);
+    }
+
     public static function add(array $roleData, array $permissionData)
     {
 

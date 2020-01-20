@@ -44,7 +44,6 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
     protected $dates = ['deleted_at'];
 
 
-
     // 管理员和角色是多对多关系
     public function roles()
     {
@@ -123,6 +122,39 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
         $admin->roles()->detach();
     }
 
+    public static function allPermissions(int $adminId)
+    {
+        $allPermissions = []; // 所有权限
+        $permissions = Admin::with('roles.permissions')->where('id', $adminId)->first();
+
+        foreach ($permissions['roles'] as $roles) {
+
+            foreach ($roles['permissions'] as $permissions) {
+                array_push($allPermissions, trim($permissions['path'],'/'));
+            }
+        }
+
+        return $allPermissions;
+
+    }
+
+    public static function menuPermissions(int $adminId)
+    {
+        $menuPermissions = []; // 权限是菜单
+        $permissions = Admin::with('roles.isMenuPermissions.menu.parent.parent')->where('id', $adminId)->first();
+
+        foreach ($permissions['roles'] as $roles) {
+            foreach ($roles['isMenuPermissions'] as $permissions) {
+                $menuPermissions[$permissions['menu_id']] = $permissions['path'];
+                !empty($permissions['menu']['parent']['id']) && $menuPermissions[$permissions['menu']['parent']['id']] = '';
+                !empty($permissions['menu']['parent']['parent']['id']) && $menuPermissions[$permissions['menu']['parent']['parent']['id']] = '';
+
+            }
+        }
+
+        return $menuPermissions;
+
+    }
 
 
     /**

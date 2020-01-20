@@ -37,7 +37,7 @@
                     <span class="x-red">*</span>图标
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="icon_code" name="icon_code" required="" lay-verify="required"
+                    <input type="text" id="icon_code" name="icon_code"
                            autocomplete="off" class="layui-input" value="{{ $menu['icon_code'] }}">
                 </div>
             </div>
