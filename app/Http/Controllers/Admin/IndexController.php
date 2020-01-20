@@ -29,10 +29,12 @@ class IndexController extends Controller
 
         if ($admin['user_name'] == SUPER_ADMINISTRATOR) {
 
-            $permissions = Permission::with('menu')->where('is_menu', 1)->get();
-//dd($permissions->toArray());
+            $permissions = Permission::with('menu.parent.parent')->where('is_menu',1)->get();
+
             foreach ($permissions as $permission) {
                 $menusId[$permission['menu_id']] = $permission['path'];
+                !empty($permission['menu']['parent']['id']) && $menusId[$permission['menu']['parent']['id']] = '';
+                !empty($permission['menu']['parent']['parent']['id']) && $menusId[$permission['menu']['parent']['parent']['id']] = '';
             }
 
 
@@ -41,7 +43,6 @@ class IndexController extends Controller
                 $menusId[$key] = $path;
             }
         }
-
 
 
         $data['menusId'] = $menusId;
